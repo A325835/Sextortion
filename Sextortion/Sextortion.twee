@@ -1,0 +1,82 @@
+:: StoryTitle
+Sextortion
+
+
+:: StoryData
+{
+  "ifid": "CBDD2700-8648-49BC-988A-F5F4232B59C6",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "StoryInit",
+  "zoom": 1
+}
+
+
+:: Header {"position":"875,275","size":"100,100"}
+(window: bind _win)
+(_win: "onpopstate", (event: => (replace:?Page)[]))
+
+
+
+:: Start {"position":"725,500","size":"100,100"}
+
+
+
+:: StoryInit {"position":"725,275","size":"100,200"}
+(align:"=><=")+(box:"====XXXXXXXXXXXXXXX======")[An interactive story about sextortion
+](align:"==><===")[[Start]]
+
+
+
+:: StoryStylesheet [stylesheet]
+/* Oculta los botones de deshacer/rehacer */
+tw-sidebar tw-icon[title="Undo"],
+tw-sidebar tw-icon[title="Redo"] {
+    display: none;
+}
+
+/* Fondo oscuro estilo Disco Elysium */
+body {
+  min-width:500px;
+  background-color: #1e1e2f;
+  color: #dcdcdc;
+  font-family: 'Georgia', serif;
+  padding: 500px;
+  height:100%;
+}
+
+/* Caja de diálogo */
+tw-passage {
+ 
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Texto más grande y legible */
+tw-passage p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Enlaces morados */
+tw-link {
+  color: #c678dd;
+  font-weight: bold;
+}
+
+tw-link:hover {
+  color: #e0b3ff;
+  text-decoration: underline;
+}
+
+/* Enlaces rojos */
+tw-link.red {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+tw-link.red:hover {
+  color: #ff9999;
+  text-decoration: underline;
+}
