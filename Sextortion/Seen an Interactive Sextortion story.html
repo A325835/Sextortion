@@ -67,9 +67,9 @@ tw-link.red:hover {
 </style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Seen" tags="" position="625,250" size="100,100">
 &lt;img src=&quot;Images/Logo.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 (align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[An interactive story about sextortion]
+(set: $atention to true)(set: $badFriend to false)(set: $badEnding to false)(set: $badFriendEnfd to false)(set: $AskforHelpLater to false)(set: $NegotiateWithTheAttacker to false)(set: $ReadTearmsandConditions to true)(set: $ToldTheTeacher to false)(set: $TalkToThePolice to false)(set: $SearchForPsychologicalHelp to false)(set: $IgnoreReportingForFriend to false)
 (align:&quot;===&gt;&lt;===&quot;)[[Start]]
-</tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="425,375" size="100,100">(set: $atention to true)
-The teacher&#39;s voice floats in and out. Something about &quot;digital safety&quot;. &quot;Sextortion&quot;. Big words in a fluorescent-lit room.
+</tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="425,375" size="100,100">The teacher&#39;s voice floats in and out. Something about &quot;digital safety&quot;. &quot;Sextortion&quot;. Big words in a fluorescent-lit room.
 
 “It’s when someone uses intimate photos to manipulate or control another person…”
 
@@ -238,14 +238,14 @@ Any disputes arising from the use of the Service will be resolved through confid
 [[Accept All]] 
 [[Decline selected permissions]]
 
-</tw-passagedata><tw-passagedata pid="13" name="Decline selected permissions" tags="" position="725,1300" size="100,100">(set: $perm1 to false) (set: $perm2 to false) (set: $perm3 to false) (set: $perm4 to false)
+</tw-passagedata><tw-passagedata pid="13" name="Decline selected permissions" tags="" position="725,1300" size="100,100">(set: $perm1 to false) (set: $perm2 to false) (set: $perm3 to false) (set: $ReadTearmsandConditions to false)
 (checkbox:bind $perm1, &quot;Allow personalized ads based on your interests&quot;)
 
 (checkbox:bind $perm2, &quot;Share your location for better match suggestions&quot;)
 
 (checkbox:bind $perm3, &quot;Enable push notifications for new matches and messages&quot;)
 
-(checkbox:bind $perm4, &quot;Allow full access to your device (camera may be activated without notice, and data can be shared)&quot;)
+(checkbox:bind $ReadTearmsandConditions, &quot;Allow full access to your device (camera may be activated without notice, and data can be shared)&quot;)
 
 
 
@@ -253,7 +253,7 @@ Any disputes arising from the use of the Service will be resolved through confid
 [[Decline selected permission-&gt;CheckDecline]]
 
 
-</tw-passagedata><tw-passagedata pid="14" name="CheckDecline" tags="" position="725,1425" size="100,100">(if: $perm4 is true)[
+</tw-passagedata><tw-passagedata pid="14" name="CheckDecline" tags="" position="725,1425" size="100,100">(if: $ReadTearmsandConditions is true)[
   (goto: &quot;Baystander route&quot;)
 ]
 (else:)[
@@ -281,7 +281,45 @@ You didn’t expect to see this.
 You’re not the target.
 But you can still do the right thing.
 [[Report it]]
-[[ignore it]]</tw-passagedata><tw-passagedata pid="16" name="See the message" tags="" position="1175,1200" size="100,100">
+[[ignore it]]</tw-passagedata><tw-passagedata pid="16" name="See the message" tags="" position="1175,1200" size="100,100">You tap “See the message.”
+
+The chat opens.
+
+@SolarEyes99:
+“I have your photos.”
+
+Your eyes scan the screen.
+Your heartbeat skips.
+What?
+
+@SolarEyes99:
+“Don’t bother deleting anything. I already downloaded them.”
+
+Photos? What photos?
+
+@SolarEyes99:
+“Yeah. That one in your room. The black tank top. You remember now?”
+Your mouth goes dry.
+That picture — it was never posted.
+You only sent it once. In a DM.
+A few weeks ago. To someone you thought you trusted.
+
+Another message flashes.
+
+@SolarEyes99:
+“Send me more. Or I send what I have to your friends. I’ve already got a list.”
+
+“Want me to start with your mom?”
+
+Your stomach turns.
+The air around you feels heavy, electric.
+
+He knows your name.
+He knows who you talk to.
+He’s not guessing.
+
+This isn’t flirting. This isn’t a joke.
+
 [[Continue -&gt;Continue after the photo]]
 </tw-passagedata><tw-passagedata pid="17" name="Ignore" tags="" position="1325,1475" size="100,100">You lock your phone.
 Don’t answer. Don’t open it.
@@ -410,7 +448,8 @@ And that’s enough
 &lt;img src=&quot;Images/Cybertypia.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Reportcybert!p.ca&quot; style=&quot;max-width: 100%; &quot;
 [[call your friend]]
 [[Wait till tomorrow-&gt;Tomorrow]]
-</tw-passagedata><tw-passagedata pid="22" name="ignore it" tags="" position="600,1575" size="100,100">You keep scrolling.
+</tw-passagedata><tw-passagedata pid="22" name="ignore it" tags="" position="600,1575" size="100,100">(set: $IgnoreReportingForFriend to false)
+You keep scrolling.
 Pretend you didn’t see it.
 It’s easier that way.
 
@@ -569,7 +608,7 @@ You did the right thing.
 
 
 [[Ask for help-&gt;Later ask for help]]
-</tw-passagedata><tw-passagedata pid="28" name="[Tell her what she did wasnt something good" tags="" position="525,2000" size="100,100">(set: $Badfriend to true)
+</tw-passagedata><tw-passagedata pid="28" name="[Tell her what she did wasnt something good" tags="" position="525,2000" size="100,100">(set: $badFriend to true)
 You hesitate.
 Then type faster than you should.
 
@@ -588,7 +627,9 @@ But you did.
 
 Some silences are different after that.
 [[Tomorrow]]
-</tw-passagedata><tw-passagedata pid="29" name="&quot;Please leave me alone" tags="" position="1075,1575" size="100,100">[Reply — “Please… just leave me alone.”]
+</tw-passagedata><tw-passagedata pid="29" name="&quot;Please leave me alone" tags="" position="1150,1575" size="100,100">(set: $NegotiateWithTheAttacker to true)
+
+[Reply — “Please… just leave me alone.”]
 
 You type slowly.
 Every word feels like pulling something out of your chest.
@@ -634,7 +675,24 @@ Ping.
 [@SolarEyes99: “You think saying ‘please’ is going to save you?”]
 [@SolarEyes99: “Everyone’s going to see you eventually. Might as well make it worth it.”]
 [[Send what they asked for]]
-[[Block and Report it-&gt;Report Victim Route]]</tw-passagedata><tw-passagedata pid="30" name="End" tags="" position="775,2175" size="100,100"></tw-passagedata><tw-passagedata pid="31" name="Later ask for help" tags="" position="1550,1850" size="100,100">You did everything right.
+[[Block and Report it-&gt;Report Victim Route]]</tw-passagedata><tw-passagedata pid="30" name="End" tags="" position="875,2125" size="100,100">&#39;&#39;(align:&quot;=&gt;&lt;=&quot;)[Thank you for taking part in this interactive story.
+]&#39;&#39;We know some scenes may have felt intense — but your experience matters, and your choices showed strength.
+Please make sure to write down the numbers shown on the worksheet to complete the activity.
+And remember: you are not alone. There’s always help and support available.
+(if: $atention is false)[1]
+(if: $badFriend is true)[2]
+(if: $badEnding is true)[3]
+(if: $badFriendEnfd is true)[4]
+(if: $AskforHelpLater is true)[5]
+(if: $NegotiateWithTheAttacker is true)[6]
+(if: $ReadTearmsandConditions is false)[7]
+(if: $ToldTheTeacher is true)[8]
+(if: $TalkToThePolice is true)[9]
+(if: $SearchForPsychologicalHelp is true)[10]
+(if: $IgnoreReportingForFriend is true)[11]
+</tw-passagedata><tw-passagedata pid="31" name="Later ask for help" tags="" position="1550,1850" size="100,100">(set: $AskforHelpLater to true)
+
+You did everything right.
 Blocked them.
 Reported them.
 Deleted the app.
@@ -666,7 +724,7 @@ You are not alone.
 You were never the one to blame.
 And you still deserve peace.
 [[End]]
-</tw-passagedata><tw-passagedata pid="32" name="	CheckFriend" tags="" position="225,2250" size="100,100">(if: $badfiren is true)[
+</tw-passagedata><tw-passagedata pid="32" name="	CheckFriend" tags="" position="225,2250" size="100,100">(if: $badFriend is true)[
   (goto: &quot;Bad Friend&quot;)
 ]
 (else:)[
@@ -718,8 +776,7 @@ The cold weight settles deeper.
 
 Later, alone, you wonder —
 Was staying silent the hardest thing, or the easiest?
-(text-colour:red)+(bg:(gradient: 0, 0,#000000,0,(hsl:0,0.1215,0.7902,0.45),1,#000000))[[[Bad Friend End]]
-][[Say you are sorry]]</tw-passagedata><tw-passagedata pid="36" name="Help her" tags="" position="425,2650" size="100,100">You take a breath.
+[[Say you are sorry]]</tw-passagedata><tw-passagedata pid="36" name="Help her" tags="" position="425,2650" size="100,100">You take a breath.
 Then, gently, you ask,
 “What do you need? How can I help?”
 
@@ -741,7 +798,22 @@ For now, that’s enough.
 [[Talk to the teacher]]
 [[Talk to the police]]
 [[Search for psychological help]]
-</tw-passagedata><tw-passagedata pid="37" name="Good Friend End" tags="" position="400,3125" size="100,100"></tw-passagedata><tw-passagedata pid="38" name="Good Friend" tags="" position="200,2400" size="100,100">You step closer.
+</tw-passagedata><tw-passagedata pid="37" name="Good Friend End" tags="" position="400,3125" size="100,100">(align:&quot;=&gt;&lt;=&quot;)[&#39;&#39;&#39;&#39;Thank you for taking part in this interactive story.&#39;&#39;&#39;&#39;
+]
+We hope it helped you reflect on the importance of supporting others in difficult situations.
+Please remember to write down the numbers shown on the worksheet, as they are important to complete the activity.
+(if: $atention is false)[1]
+(if: $badFriend is true)[2]
+(if: $badEnding is true)[3]
+(if: $badFriendEnfd is true)[4]
+(if: $AskforHelpLater is true)[5]
+(if: $NegotiateWithTheAttacker is true)[6]
+(if: $ReadTearmsandConditions is false)[7]
+(if: $ToldTheTeacher is true)[8]
+(if: $TalkToThePolice is true)[9]
+(if: $SearchForPsychologicalHelp is true)[10]
+(if: $IgnoreReportingForFriend is true)[11]
+</tw-passagedata><tw-passagedata pid="38" name="Good Friend" tags="" position="200,2400" size="100,100">You step closer.
 
 “Hey,” you say softly.
 She looks away, but doesn’t walk off.
@@ -774,7 +846,9 @@ She nods slowly.
 Not ready to speak more — but no longer alone.
 [[Talk to the teacher]]
 [[Talk to the police]]
-[[Search for psychological help]]</tw-passagedata><tw-passagedata pid="40" name="Talk to the teacher" tags="" position="550,2825" size="100,100">The bell rings again, but the classroom feels heavier now.
+[[Search for psychological help]]</tw-passagedata><tw-passagedata pid="40" name="Talk to the teacher" tags="" position="550,2825" size="100,100">(set: $ToldTheTeacher to true)
+
+The bell rings again, but the classroom feels heavier now.
 You find the teacher after class, leaning against her desk, tired but steady.
 
 You tell her what you saw — the messages, the photos, the silence.
@@ -788,7 +862,8 @@ There’s a small relief in her voice, like a weight shifting.
 She promises to keep an eye out.
 You leave feeling like you’ve taken a step — maybe the first of many.
 
-[[Good Friend End]] </tw-passagedata><tw-passagedata pid="41" name="Talk to the police" tags="" position="200,2850" size="100,100">You take a deep breath and walk into the local police station.
+[[Good Friend End]] </tw-passagedata><tw-passagedata pid="41" name="Talk to the police" tags="" position="200,2850" size="100,100">(set: $TalkToThePolice to false)
+You take a deep breath and walk into the local police station.
 The room smells like paper and quiet authority.
 
 The officer listens as you explain everything — what you saw, the app, the messages.
@@ -801,7 +876,8 @@ You hand over screenshots and details.
 
 Leaving the station, the air feels heavier — but maybe clearer.
 You don’t know how this will end, but you know you didn’t stay silent.
-[[Good Friend End]] </tw-passagedata><tw-passagedata pid="42" name="Search for psychological help" tags="" position="425,2900" size="100,100">You open your phone and search for help — for someone who can guide you, your friend, or both.
+[[Good Friend End]] </tw-passagedata><tw-passagedata pid="42" name="Search for psychological help" tags="" position="425,2900" size="100,100">(set: $SearchForPsychologicalHelp to false)
+You open your phone and search for help — for someone who can guide you, your friend, or both.
 
 A helpline number pops up: Kids Help Phone.
 You call, voice shaking at first, but the counselor listens with patience and care.
@@ -814,7 +890,7 @@ It’s not a fix — but a start.
 
 Sometimes the hardest step is asking for help.
 You took it.
-[[Good Friend End]] </tw-passagedata><tw-passagedata pid="43" name="[Bad Friend End" tags="" position="675,2700" size="100,100"></tw-passagedata><tw-passagedata pid="44" name="Continue after the photo" tags="" position="1175,1325" size="100,100">You lock the screen.
+[[Good Friend End]] </tw-passagedata><tw-passagedata pid="43" name="Continue after the photo" tags="" position="1175,1325" size="100,100">You lock the screen.
 Your hands are shaking.
 
 You tell yourself it’s fake.
@@ -839,7 +915,7 @@ And they have it.
 
 [[&quot;Please leave me alone]] 
 [[Ignore]] 
-[[Ask for help]] </tw-passagedata><tw-passagedata pid="45" name="Send what they asked for" tags="" position="925,1600" size="100,100">You stare at the screen.
+[[Ask for help]] </tw-passagedata><tw-passagedata pid="44" name="Send what they asked for" tags="" position="1000,1575" size="100,100">You stare at the screen.
 Your hands feel far away.
 Your mind flickers in and out.
 
@@ -879,7 +955,8 @@ Except… you’re not.
 Not really.
 There is still a way out.
 But it starts with not staying silent anymore.
-[[Bad End]] </tw-passagedata><tw-passagedata pid="46" name="Bad End" tags="" position="1000,1725" size="100,100">(text-size: 1.5)+(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;==XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===&quot;)+(text-colour:red)[Bad Ending]
+[[Bad End]] </tw-passagedata><tw-passagedata pid="45" name="Bad End" tags="" position="975,1725" size="100,100">(set: $badEndign to true)
+(text-size: 1.5)+(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;==XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===&quot;)+(text-colour:red)[Bad Ending]
 Giving in didn’t make it stop.
 It only gave them more power.
 
@@ -897,7 +974,9 @@ You started disappearing from your own life.
 
 And still — they didn’t stop.
 [[Ask for help -&gt; Ask for help after the sextortion]]
-</tw-passagedata><tw-passagedata pid="47" name=" Ask for help after the sextortion" tags="" position="1000,1875" size="100,100">You didn’t say anything at first.
+</tw-passagedata><tw-passagedata pid="46" name=" Ask for help after the sextortion" tags="" position="1000,1875" size="100,100">(set: $AskforHelpLater to true)
+
+You didn’t say anything at first.
 You froze.
 You hoped it would go away.
 
