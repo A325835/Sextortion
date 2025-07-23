@@ -61,14 +61,65 @@ tw-link.red:hover {
   color: #ff9999;
   text-decoration: underline;
 }
+.concern-dropdown select {
+  background-color: black; /* azul claro */
+  color: black;
+  border-radius: 4px;
+  padding: 3px;
+}
 
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">window.setup = window.setup || {};
 
+setup.exportVariables = function () {
+    // Save current input value to Twine variable
+    const mensaje = document.getElementById("playerMessage")?.value;
+    if (mensaje !== undefined) {
+        State.variables.playerMessage = mensaje;
+    }
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Seen" tags="" position="625,250" size="100,100">
+    const v = State.variables;
+
+    const variables = {
+        "Atención prestada": v.atention,
+        "Amigo actuó mal": v.badFriend,
+        "Final malo": v.badEnding,
+        "El amigo terminó mal": v.badFriendEnfd,
+        "Pidió ayuda después": v.AskforHelpLater,
+        "Negoció con el atacante": v.NegotiateWithTheAttacker,
+        "Leyó términos y condiciones": v.ReadTearmsandConditions,
+        "Le contó al profesor": v.ToldTheTeacher,
+        "Habló con la policía": v.TalkToThePolice,
+        "Buscó ayuda psicológica": v.SearchForPsychologicalHelp,
+        "Ignoró reportar por el amigo": v.IgnoreReportingForFriend,
+        "Mensaje del jugador a su amigo": v.playerMessage || "(No se escribió mensaje)",
+      	"Mensaje del jugador al pedir ayuda": v.playerAskforHelp || "(No se escribió mensaje)",
+      "Mensaje del jugador de que habria hecho diferente": v.playerDifferent || "(No se escribió mensaje)",
+      "Que tan preocupado estaba por su amiga": v.concernLevel,
+       "Le contó a los papas de su amiga": v.telllFriendsParents,
+
+      
+    };
+
+    let contenido = "Resultados de la historia:\n\n";
+    for (const clave in variables) {
+        contenido += `${clave}: ${variables[clave]}\n`;
+    }
+
+    const blob = new Blob([contenido], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "resultados_historia.txt";
+    document.body.appendChild(enlace);
+    enlace.click();
+    document.body.removeChild(enlace);
+};
+</script><tw-passagedata pid="1" name="Seen" tags="" position="625,250" size="100,100">
 &lt;img src=&quot;Images/Logo.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 (align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[An interactive story about sextortion]
-(set: $atention to true)(set: $badFriend to false)(set: $badEnding to false)(set: $badFriendEnfd to false)(set: $AskforHelpLater to false)(set: $NegotiateWithTheAttacker to false)(set: $ReadTearmsandConditions to true)(set: $ToldTheTeacher to false)(set: $TalkToThePolice to false)(set: $SearchForPsychologicalHelp to false)(set: $IgnoreReportingForFriend to false)
+(set: $atention to true)(set: $badFriend to false)(set: $badEnding to false)(set: $badFriendEnfd to false)(set: $AskforHelpLater to false)(set: $NegotiateWithTheAttacker to false)(set: $ReadTearmsandConditions to true)(set: $ToldTheTeacher to false)(set: $TalkToThePolice to false)(set: $SearchForPsychologicalHelp to false)(set: $IgnoreReportingForFriend to false)(set: $telllFriendsParents to false)
 (align:&quot;===&gt;&lt;===&quot;)[[Start]]
+
 </tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="425,375" size="100,100">The teacher&#39;s voice floats in and out. Something about &quot;digital safety&quot;. &quot;Sextortion&quot;. Big words in a fluorescent-lit room.
 
 “It’s when someone uses intimate photos to manipulate or control another person…”
@@ -175,7 +226,8 @@ Not ever.”
   &lt;/video&gt;
   [[Read Terms &amp; Condition]]
 &lt;/div&gt;
-</tw-passagedata><tw-passagedata pid="11" name="Accept All" tags="" position="1000,1175" size="100,100">The app finishes installing.
+</tw-passagedata><tw-passagedata pid="11" name="Accept All" tags="" position="1000,1175" size="100,100"> (set: $ReadTearmsandConditions to false)
+The app finishes installing.
 
 A wall of text loads — pages and pages. Legalese. Grey font on white background.
 
@@ -339,7 +391,7 @@ The lock screen lights up again. And again. And again.
 Your chest tightens.
 Like the room just got smaller.
 &lt;img src=&quot;Images/ChatSextortion.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Chat&quot; style=&quot;max-width: 150%; margin-left: -75px&quot;&gt; [[Block and Report it-&gt;Report Victim Route]]
-(text-colour:red)[[&quot;Please leave me alone]]
+(text-colour:red)[[&quot;Please leave me alone&quot;]]
 </tw-passagedata><tw-passagedata pid="18" name="Ask for help" tags="" position="775,1675" size="100,100">You didn’t wait.
 You didn’t freeze.
 The moment it felt wrong — you said something.
@@ -377,6 +429,11 @@ And you’re not walking it alone.
 You were brave.
 You did the right thing.
 And you still deserve peace.
+(set: $playerAskforHelp to &quot;&quot;)
+Who did you turn to for help, and what did you tell them?
+(input-box: bind $playerAskforHelp)
+
+(link: &quot;Mostrar resultado&quot;)
 [[End]]
 </tw-passagedata><tw-passagedata pid="19" name="The teacher notices it" tags="" position="625,550" size="100,100">(set: $atention to false)
 Your focus slips.
@@ -410,7 +467,7 @@ Sextortion.
 This time, they stick
 [[Continue-&gt;Explanation1]] 
 
-</tw-passagedata><tw-passagedata pid="21" name="Report it" tags="" position="75,1525" size="100,100">You open the tab.
+</tw-passagedata><tw-passagedata pid="21" name="Report it" tags="" position="150,1500" size="100,100">You open the tab.
 cybertip.ca
 
 The cursor blinks.
@@ -445,10 +502,10 @@ You’re not the hero.
 You’re just someone who didn’t look away.
 And that’s enough
 
-&lt;img src=&quot;Images/Cybertypia.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Reportcybert!p.ca&quot; style=&quot;max-width: 100%; &quot;
+&lt;img src=&quot;Images/Cybertypia.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Reportcybert!p.ca&quot; style=&quot;max-width: 100%; &quot;&gt;
 [[call your friend]]
 [[Wait till tomorrow-&gt;Tomorrow]]
-</tw-passagedata><tw-passagedata pid="22" name="ignore it" tags="" position="600,1575" size="100,100">(set: $IgnoreReportingForFriend to false)
+</tw-passagedata><tw-passagedata pid="22" name="ignore it" tags="" position="600,1575" size="100,100">(set: $IgnoreReportingForFriend to true)
 You keep scrolling.
 Pretend you didn’t see it.
 It’s easier that way.
@@ -479,20 +536,29 @@ And they got it.
 From you.
 [[Report it]] 
 [[call your friend]] 
-[[Wait till tomorrow-&gt;Tomorrow]] </tw-passagedata><tw-passagedata pid="23" name="call your friend" tags="" position="200,1650" size="100,100">You try calling her.
+[[Wait till tomorrow-&gt;Tomorrow]] </tw-passagedata><tw-passagedata pid="23" name="call your friend" tags="" position="375,1700" size="100,100">You try calling her.
 It rings.
 Once.
 Twice.
 Then straight to voicemail.
 
 No answer.
+(set: $concernLevel to 1)
+
+From 1 to 10, how concerned are you about your friend?
+Choose a number:
+&lt;span class=&quot;concern-dropdown&quot;&gt; (dropdown: bind $concernLevel, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;) &lt;/span&gt;
 
 You stare at your screen for a while.
 The message app glows softly.
 
+
+What would you say to her?
+
+
 [[Ask her about what happened]]
 [[Tell her that its ok, and you are still be by her side]]
-(text-colour:red)[[[Tell her what she did wasnt something good]]]</tw-passagedata><tw-passagedata pid="24" name="Ask her about what happened" tags="" position="50,1900" size="100,100">“Hey… I saw what people are posting.
+(text-colour:red)[[[Tell her what she did wasnt something good]]]</tw-passagedata><tw-passagedata pid="24" name="Ask her about what happened" tags="" position="125,1900" size="100,100">“Hey… I saw what people are posting.
 I don’t know the full story, but…
 what happened?”
 
@@ -504,7 +570,7 @@ And someone cares enough to ask.
 
 A pause in the silence.
 
-[[Tomorrow]] </tw-passagedata><tw-passagedata pid="25" name="Tell her that its ok, and you are still be by her side" tags="" position="225,1900" size="100,100">
+[[Tomorrow]] </tw-passagedata><tw-passagedata pid="25" name="Tell her that its ok, and you are still be by her side" tags="" position="275,1925" size="100,100">
 You don’t need the full story.
 You just send what matters most.
 
@@ -523,7 +589,7 @@ Two words.
 Heavy with everything she can’t say yet.
 
 
-[[Tomorrow]] </tw-passagedata><tw-passagedata pid="26" name="Tomorrow" tags="" position="225,2125" size="100,100"> &lt;audio controls loop autoplay src=&quot;Images/crowdworried.mp3&quot;&gt;&lt;/audio&gt;
+[[Tomorrow]] </tw-passagedata><tw-passagedata pid="26" name="Tomorrow" tags="" position="225,2125" size="100,100">  &lt;audio controls loop autoplay src=&quot;Images/crowdworried.mp3&quot;&gt;&lt;/audio&gt;
 The hallway feels different.
 Louder, but somehow emptier.
 Everyone’s talking — but no one says it out loud.
@@ -555,6 +621,13 @@ But maybe she did.
 
 You could still say something.
 Even now.
+What would you say to her?
+(set: $playerMessage to &quot;&quot;)
+(input-box: bind $playerMessage)
+
+
+
+
 [[Talk to her-&gt;	CheckFriend]]
 </tw-passagedata><tw-passagedata pid="27" name="Report Victim Route" tags="" position="1525,1625" size="100,100">You open the chat again — not to read, but to document.
 
@@ -627,7 +700,7 @@ But you did.
 
 Some silences are different after that.
 [[Tomorrow]]
-</tw-passagedata><tw-passagedata pid="29" name="&quot;Please leave me alone" tags="" position="1150,1575" size="100,100">(set: $NegotiateWithTheAttacker to true)
+</tw-passagedata><tw-passagedata pid="29" name="&quot;Please leave me alone&quot;" tags="" position="1150,1575" size="100,100">(set: $NegotiateWithTheAttacker to true)
 
 [Reply — “Please… just leave me alone.”]
 
@@ -675,22 +748,17 @@ Ping.
 [@SolarEyes99: “You think saying ‘please’ is going to save you?”]
 [@SolarEyes99: “Everyone’s going to see you eventually. Might as well make it worth it.”]
 [[Send what they asked for]]
-[[Block and Report it-&gt;Report Victim Route]]</tw-passagedata><tw-passagedata pid="30" name="End" tags="" position="875,2125" size="100,100">&#39;&#39;(align:&quot;=&gt;&lt;=&quot;)[Thank you for taking part in this interactive story.
+[[Block and Report it-&gt;Report Victim Route]]</tw-passagedata><tw-passagedata pid="30" name="End" tags="" position="875,2125" size="100,100">&lt;script&gt;setup.exportVariables();&lt;/script&gt;
+&#39;&#39;(align:&quot;=&gt;&lt;=&quot;)[Thank you for taking part in this interactive story.
 ]&#39;&#39;We know some scenes may have felt intense — but your experience matters, and your choices showed strength.
-Please make sure to write down the numbers shown on the worksheet to complete the activity.
-And remember: you are not alone. There’s always help and support available.
-(if: $atention is false)[1]
-(if: $badFriend is true)[2]
-(if: $badEnding is true)[3]
-(if: $badFriendEnfd is true)[4]
-(if: $AskforHelpLater is true)[5]
-(if: $NegotiateWithTheAttacker is true)[6]
-(if: $ReadTearmsandConditions is false)[7]
-(if: $ToldTheTeacher is true)[8]
-(if: $TalkToThePolice is true)[9]
-(if: $SearchForPsychologicalHelp is true)[10]
-(if: $IgnoreReportingForFriend is true)[11]
-</tw-passagedata><tw-passagedata pid="31" name="Later ask for help" tags="" position="1550,1850" size="100,100">(set: $AskforHelpLater to true)
+ Now, please gather around one computer to repeat the activity as a team.  
+  Working together will help you explore different perspectives and discuss what choices might be best.
+
+  &#39;&#39;&#39;This time, you get to choose which path you want to explore.&#39;&#39;&#39;  
+  Which decisions will you make together?
+  [[Victim Route -&gt;Accept All]]
+[[Support Route -&gt;Baystander route]] 
+  </tw-passagedata><tw-passagedata pid="31" name="Later ask for help" tags="" position="1550,1850" size="100,100">(set: $AskforHelpLater to true)
 
 You did everything right.
 Blocked them.
@@ -723,6 +791,11 @@ But stay the course — you will make it, someday.
 You are not alone.
 You were never the one to blame.
 And you still deserve peace.
+(set: $playerAskforHelp to &quot;&quot;)
+Who did you turn to for help, and what did you tell them?
+(input-box: bind $playerAskforHelp)
+
+(link: &quot;Mostrar resultado&quot;)
 [[End]]
 </tw-passagedata><tw-passagedata pid="32" name="	CheckFriend" tags="" position="225,2250" size="100,100">(if: $badFriend is true)[
   (goto: &quot;Bad Friend&quot;)
@@ -776,6 +849,9 @@ The cold weight settles deeper.
 
 Later, alone, you wonder —
 Was staying silent the hardest thing, or the easiest?
+Looking back, what might you have done differently?
+(set: $playerDifferent to &quot;&quot;)
+(input-box: bind $playerDifferent)
 [[Say you are sorry]]</tw-passagedata><tw-passagedata pid="36" name="Help her" tags="" position="425,2650" size="100,100">You take a breath.
 Then, gently, you ask,
 “What do you need? How can I help?”
@@ -798,21 +874,20 @@ For now, that’s enough.
 [[Talk to the teacher]]
 [[Talk to the police]]
 [[Search for psychological help]]
-</tw-passagedata><tw-passagedata pid="37" name="Good Friend End" tags="" position="400,3125" size="100,100">(align:&quot;=&gt;&lt;=&quot;)[&#39;&#39;&#39;&#39;Thank you for taking part in this interactive story.&#39;&#39;&#39;&#39;
-]
-We hope it helped you reflect on the importance of supporting others in difficult situations.
-Please remember to write down the numbers shown on the worksheet, as they are important to complete the activity.
-(if: $atention is false)[1]
-(if: $badFriend is true)[2]
-(if: $badEnding is true)[3]
-(if: $badFriendEnfd is true)[4]
-(if: $AskforHelpLater is true)[5]
-(if: $NegotiateWithTheAttacker is true)[6]
-(if: $ReadTearmsandConditions is false)[7]
-(if: $ToldTheTeacher is true)[8]
-(if: $TalkToThePolice is true)[9]
-(if: $SearchForPsychologicalHelp is true)[10]
-(if: $IgnoreReportingForFriend is true)[11]
+[[Talk to her parents]]
+</tw-passagedata><tw-passagedata pid="37" name="Good Friend End" tags="" position="400,3125" size="100,100">&lt;script&gt;setup.exportVariables();&lt;/script&gt;
+(align:&quot;=&gt;&lt;=&quot;)[
+  &#39;&#39;&#39;Thank you for taking part in this interactive story.&#39;&#39;&#39;]
+
+  We hope it helped you reflect on the importance of supporting others in difficult situations.  
+
+Now, please gather around a single computer to repeat this activity as a team.  
+Working together will help you reflect on different perspectives, and discuss what worked best.
+&#39;&#39;This time, you get to choose which path you want to explore.&#39;&#39;&#39;  
+Which decision will you make together?
+[[Victim Route -&gt;Accept All]]
+[[Support Route -&gt;Baystander route]] 
+  
 </tw-passagedata><tw-passagedata pid="38" name="Good Friend" tags="" position="200,2400" size="100,100">You step closer.
 
 “Hey,” you say softly.
@@ -846,7 +921,9 @@ She nods slowly.
 Not ready to speak more — but no longer alone.
 [[Talk to the teacher]]
 [[Talk to the police]]
-[[Search for psychological help]]</tw-passagedata><tw-passagedata pid="40" name="Talk to the teacher" tags="" position="550,2825" size="100,100">(set: $ToldTheTeacher to true)
+[[Search for psychological help]]
+[[Talk to her parents]]
+</tw-passagedata><tw-passagedata pid="40" name="Talk to the teacher" tags="" position="550,2825" size="100,100">(set: $ToldTheTeacher to true)
 
 The bell rings again, but the classroom feels heavier now.
 You find the teacher after class, leaning against her desk, tired but steady.
@@ -862,7 +939,7 @@ There’s a small relief in her voice, like a weight shifting.
 She promises to keep an eye out.
 You leave feeling like you’ve taken a step — maybe the first of many.
 
-[[Good Friend End]] </tw-passagedata><tw-passagedata pid="41" name="Talk to the police" tags="" position="200,2850" size="100,100">(set: $TalkToThePolice to false)
+[[Good Friend End]] </tw-passagedata><tw-passagedata pid="41" name="Talk to the police" tags="" position="75,2900" size="100,100">(set: $TalkToThePolice to false)
 You take a deep breath and walk into the local police station.
 The room smells like paper and quiet authority.
 
@@ -913,7 +990,7 @@ It’s you.
 
 And they have it.
 
-[[&quot;Please leave me alone]] 
+[[&quot;Please leave me alone&quot;]] 
 [[Ignore]] 
 [[Ask for help]] </tw-passagedata><tw-passagedata pid="44" name="Send what they asked for" tags="" position="1000,1575" size="100,100">You stare at the screen.
 Your hands feel far away.
@@ -973,6 +1050,12 @@ Stopped trusting.
 You started disappearing from your own life.
 
 And still — they didn’t stop.
+Looking back, what might you have done differently?
+(set: $playerDifferent to &quot;&quot;)
+(input-box: bind $playerDifferent)
+
+
+
 [[Ask for help -&gt; Ask for help after the sextortion]]
 </tw-passagedata><tw-passagedata pid="46" name=" Ask for help after the sextortion" tags="" position="1000,1875" size="100,100">(set: $AskforHelpLater to true)
 
@@ -1003,9 +1086,48 @@ But stay the course — you will make it, someday.
 It’s never too late to speak.
 What they did was wrong — not your fault.
 And you still deserve peace.
+
+(set: $playerAskforHelp to &quot;&quot;)
+Who did you turn to for help, and what did you tell them?
+(input-box: bind $playerAskforHelp)
+
+(link: &quot;Mostrar resultado&quot;)
 [[End]]
 
-</tw-passagedata></tw-storydata>
+</tw-passagedata><tw-passagedata pid="47" name="Talk to her parents" tags="" position="250,2900" size="100,100">(set: $telllFriendsParents to true)
+
+After a moment, you say,
+“I think it’s time to tell your parents. They can help.”
+
+She shakes her head, voice barely above a whisper,
+“They won’t understand. They’ll be mad... or worse, ashamed.”
+
+You reach out, place a hand on her shoulder.
+“I’ll be there. Every step. You won’t have to do this alone.”
+
+She looks at you — uncertain, scared, but maybe a flicker of hope.
+“I don’t know if I can,” she admits.
+
+“Just one step at a time,” you say.
+“You don’t have to have all the answers right now.”
+
+Later, you both walk up the stairs to her front door.
+Your friend takes a deep breath, opens the door.
+
+Her parents look up, surprised.
+You stay by her side as she starts to speak.
+
+Her voice trembles, but she keeps going.
+Her parents listen — some tears, some silence.
+
+You see the first cracks in the walls around her.
+
+Afterwards, your friend looks at you.
+“Thank you,” she says softly.
+
+You smile, knowing this is just the beginning.
+But for once, she’s not alone.
+[[Good Friend End]] </tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
