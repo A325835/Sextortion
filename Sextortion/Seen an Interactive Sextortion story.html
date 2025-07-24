@@ -117,7 +117,7 @@ setup.exportVariables = function () {
 </script><tw-passagedata pid="1" name="Seen" tags="" position="625,250" size="100,100">
 &lt;img src=&quot;Images/Logo.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 (align:&quot;=&gt;&lt;=&quot;)+(box:&quot;X&quot;)[An interactive story about sextortion]
-(set: $atention to true)(set: $badFriend to false)(set: $badEnding to false)(set: $badFriendEnfd to false)(set: $AskforHelpLater to false)(set: $NegotiateWithTheAttacker to false)(set: $ReadTearmsandConditions to true)(set: $ToldTheTeacher to false)(set: $TalkToThePolice to false)(set: $SearchForPsychologicalHelp to false)(set: $IgnoreReportingForFriend to false)(set: $telllFriendsParents to false)
+(set: $atention to true)(set: $badFriend to false)(set: $badEnding to false)(set: $badFriendEnfd to false)(set: $AskforHelpLater to false)(set: $NegotiateWithTheAttacker to false)(set: $ReadTearmsandConditions to true)(set: $ToldTheTeacher to false)(set: $TalkToThePolice to false)(set: $SearchForPsychologicalHelp to false)(set: $IgnoreReportingForFriend to false)(set: $telllFriendsParents to false)(set: $completedstory to false)(set: $supportroute to false)(set: $victimroute to false)
 (align:&quot;===&gt;&lt;===&quot;)[[Start]]
 
 </tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="425,375" size="100,100">The teacher&#39;s voice floats in and out. Something about &quot;digital safety&quot;. &quot;Sextortion&quot;. Big words in a fluorescent-lit room.
@@ -213,6 +213,8 @@ And just before the bell rings, you hear her say it:
 “No one has the right to use your image,
 your body, or your trust against you.
 Not ever.”
+&lt;img src=&quot;Images/class.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
+
 [[End Explanation]] 
 </tw-passagedata><tw-passagedata pid="9" name="See messages" tags="" position="725,925" size="100,100">&lt;video  width=100% height=100% controls autoplay&gt;
   &lt;source src=&quot;Images/Chat.mp4&quot; type=&quot;video/mp4&quot;&gt;
@@ -226,7 +228,7 @@ Not ever.”
   &lt;/video&gt;
   [[Read Terms &amp; Condition]]
 &lt;/div&gt;
-</tw-passagedata><tw-passagedata pid="11" name="Accept All" tags="" position="1000,1175" size="100,100"> (set: $ReadTearmsandConditions to false)
+</tw-passagedata><tw-passagedata pid="11" name="Accept All" tags="" position="1000,1175" size="100,100"> (set: $ReadTearmsandConditions to false)(set: $victimroute to true)
 The app finishes installing.
 
 A wall of text loads — pages and pages. Legalese. Grey font on white background.
@@ -263,6 +265,21 @@ It doesn&#39;t feel fun anymore.
 
 [[See the message]] 
 
+(if: $completedstory)[
+  (set: $atention to true)
+  (set: $badFriend to false)
+  (set: $badEnding to false)
+  (set: $badFriendEnfd to false)
+  (set: $AskforHelpLater to false)
+  (set: $NegotiateWithTheAttacker to false)
+  (set: $ToldTheTeacher to false)
+  (set: $TalkToThePolice to false)
+  (set: $SearchForPsychologicalHelp to false)
+  (set: $IgnoreReportingForFriend to false)
+  (set: $telllFriendsParents to false)
+  (set: $completedstory to false)
+  (set: $supportroute to false)
+]
 </tw-passagedata><tw-passagedata pid="12" name="Read Terms &amp; Condition" tags="" position="850,1175" size="100,100">
 &lt;div style=&quot;max-height: 300px; overflow-y: auto; font-size: 0.75em; padding: 1em; border: 1px solid #ccc; background-color: black; line-height: 1.4;&quot;&gt;
 
@@ -311,7 +328,8 @@ Any disputes arising from the use of the Service will be resolved through confid
 (else:)[
   (goto: &quot;Accept All&quot;)
 ]
-</tw-passagedata><tw-passagedata pid="15" name="Baystander route" tags="" position="450,1325" size="100,100">(set: $Badfriend to false)You downloaded it out of curiosity.
+</tw-passagedata><tw-passagedata pid="15" name="Baystander route" tags="" position="450,1325" size="100,100">(set: $Badfriend to false)(set: $supportroute to true)
+You downloaded it out of curiosity.
 Everyone was talking about it.
 Trendy, sleek, full of filters.
 Nothing special.
@@ -333,7 +351,21 @@ You didn’t expect to see this.
 You’re not the target.
 But you can still do the right thing.
 [[Report it]]
-[[ignore it]]</tw-passagedata><tw-passagedata pid="16" name="See the message" tags="" position="1175,1200" size="100,100">You tap “See the message.”
+[[ignore it]]
+(if: $completedstory)[
+  (set: $atention to true)
+  (set: $badEnding to false)
+  (set: $badFriendEnfd to false)
+  (set: $AskforHelpLater to false)
+  (set: $NegotiateWithTheAttacker to false)
+  (set: $ReadTearmsandConditions to true)
+  (set: $ToldTheTeacher to false)
+  (set: $TalkToThePolice to false)
+  (set: $SearchForPsychologicalHelp to false)
+  (set: $IgnoreReportingForFriend to false)
+  (set: $telllFriendsParents to false)
+  (set: $victimroute to false)
+]</tw-passagedata><tw-passagedata pid="16" name="See the message" tags="" position="1175,1200" size="100,100">You tap “See the message.”
 
 The chat opens.
 
@@ -624,7 +656,7 @@ Even now.
 What would you say to her?
 (set: $playerMessage to &quot;&quot;)
 (input-box: bind $playerMessage)
-
+&lt;img src=&quot;Images/friend.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 
 
 
@@ -747,6 +779,8 @@ Ping.
 
 [@SolarEyes99: “You think saying ‘please’ is going to save you?”]
 [@SolarEyes99: “Everyone’s going to see you eventually. Might as well make it worth it.”]
+&lt;img src=&quot;Images/atacker.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
+
 [[Send what they asked for]]
 [[Block and Report it-&gt;Report Victim Route]]</tw-passagedata><tw-passagedata pid="30" name="End" tags="" position="875,2125" size="100,100">&lt;script&gt;setup.exportVariables();&lt;/script&gt;
 &#39;&#39;(align:&quot;=&gt;&lt;=&quot;)[Thank you for taking part in this interactive story.
@@ -876,6 +910,7 @@ For now, that’s enough.
 [[Search for psychological help]]
 [[Talk to her parents]]
 </tw-passagedata><tw-passagedata pid="37" name="Good Friend End" tags="" position="400,3125" size="100,100">&lt;script&gt;setup.exportVariables();&lt;/script&gt;
+(set: $completedstory to true)
 (align:&quot;=&gt;&lt;=&quot;)[
   &#39;&#39;&#39;Thank you for taking part in this interactive story.&#39;&#39;&#39;]
 
@@ -938,21 +973,28 @@ There’s a small relief in her voice, like a weight shifting.
 
 She promises to keep an eye out.
 You leave feeling like you’ve taken a step — maybe the first of many.
+&lt;img src=&quot;Images/help.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 
 [[Good Friend End]] </tw-passagedata><tw-passagedata pid="41" name="Talk to the police" tags="" position="75,2900" size="100,100">(set: $TalkToThePolice to false)
-You take a deep breath and walk into the local police station.
+You take a deep breath and walk into the local police station, your friend beside you.
+
+She’s nervous, clutching her phone, but you give her a reassuring nod.  
 The room smells like paper and quiet authority.
 
-The officer listens as you explain everything — what you saw, the app, the messages.
-He takes notes, asks questions, calm but serious.
+An officer greets you both and listens as **your friend explains everything** — the app, the messages, the threats.  
+You stay close, offering support as she speaks.  
 
-“This is serious,” he says.
+The officer takes notes and asks questions, calm but serious.  
+“This is serious,” he says.  
 “We’ll investigate and do what we can to stop it.”
 
-You hand over screenshots and details.
+Your friend shows them the screenshots, the usernames, everything she has.  
+You watch her speak up — scared, but brave.
 
-Leaving the station, the air feels heavier — but maybe clearer.
-You don’t know how this will end, but you know you didn’t stay silent.
+As you both leave the station, the air feels heavier — but maybe clearer.  
+She didn’t stay silent, and you were there for her.
+&lt;img src=&quot;Images/police.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
+
 [[Good Friend End]] </tw-passagedata><tw-passagedata pid="42" name="Search for psychological help" tags="" position="425,2900" size="100,100">(set: $SearchForPsychologicalHelp to false)
 You open your phone and search for help — for someone who can guide you, your friend, or both.
 
@@ -967,6 +1009,8 @@ It’s not a fix — but a start.
 
 Sometimes the hardest step is asking for help.
 You took it.
+&lt;img src=&quot;Images/psic.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
+
 [[Good Friend End]] </tw-passagedata><tw-passagedata pid="43" name="Continue after the photo" tags="" position="1175,1325" size="100,100">You lock the screen.
 Your hands are shaking.
 
@@ -1032,7 +1076,7 @@ Except… you’re not.
 Not really.
 There is still a way out.
 But it starts with not staying silent anymore.
-[[Bad End]] </tw-passagedata><tw-passagedata pid="45" name="Bad End" tags="" position="975,1725" size="100,100">(set: $badEndign to true)
+[[Bad End]] </tw-passagedata><tw-passagedata pid="45" name="Bad End" tags="" position="975,1725" size="100,100">(set: $badEnding to true)
 (text-size: 1.5)+(align:&quot;=&gt;&lt;=&quot;)+(box:&quot;==XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX===&quot;)+(text-colour:red)[Bad Ending]
 Giving in didn’t make it stop.
 It only gave them more power.
@@ -1090,8 +1134,6 @@ And you still deserve peace.
 (set: $playerAskforHelp to &quot;&quot;)
 Who did you turn to for help, and what did you tell them?
 (input-box: bind $playerAskforHelp)
-
-(link: &quot;Mostrar resultado&quot;)
 [[End]]
 
 </tw-passagedata><tw-passagedata pid="47" name="Talk to her parents" tags="" position="250,2900" size="100,100">(set: $telllFriendsParents to true)
@@ -1127,6 +1169,7 @@ Afterwards, your friend looks at you.
 
 You smile, knowing this is just the beginning.
 But for once, she’s not alone.
+&lt;img src=&quot;Images/parents.png&quot; name=&quot;logo-ajustada&quot; alt=&quot;Logo&quot; style=&quot;max-width: 110%&quot;;&gt;
 [[Good Friend End]] </tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
